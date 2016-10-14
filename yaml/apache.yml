@@ -1,0 +1,17 @@
+- hosts: webservers
+  remote_user: root
+  vars:
+  - package: httpd
+  - service: httpd
+  tasks:
+  - name: install httpd package
+    yum: name={{package}} state=latest
+  - name: install configuration file for httpd
+    copy: src=/root/conf/httpd.conf dest=/etc/httpd/conf/httpd.conf
+    notify:
+    - restart httpd
+  - name: start httpd service
+    service: enabled=true name={{service}} state=started
+  handlers:
+  - name: restart httpd
+    service: name=httpd state=restarted

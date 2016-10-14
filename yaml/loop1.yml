@@ -1,0 +1,8 @@
+- hosts: webservers
+  remote_user: root
+  tasks:
+  - name: loop test
+    shell: echo "{{item.var1}} {{item.var2}}" >> /home/redhat/ans/test
+    with_items:
+    - {var1: "var1", var2: "var2"}
+    - {var1: "var11", var2: "var22"}

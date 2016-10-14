@@ -1,0 +1,13 @@
+- hosts: webservers
+  remote_user: root
+  tasks:
+  - name: conditon test1
+    command: /home/redhat/ans/test1
+    register: result
+    ignore_errors: True
+  - name: continos test2
+    command: /home/redhat/ans/test2
+    when: result|failed
+  - name: continos test3
+    command: /home/redhat/ans/test3
+    when: result|success

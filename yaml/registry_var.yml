@@ -1,0 +1,10 @@
+- hosts: webservers
+  remote_user: redhat
+  tasks:
+  - name: exec shell1
+    shell: /home/redhat/foo
+    register: foo_result
+    ignore_errors: True
+  - name: exec shell2
+    shell: /home/redhat/bar
+    when: foo_result.rc == 5

@@ -1,0 +1,11 @@
+- hosts: webservers
+  remote_user: root
+  vars:
+  -  filename: /etc/profile
+  tasks:
+  - name: exec shell1
+    shell: echo {{filename | basename}} > /home/redhat/testshell
+  tasks:
+  - name: exec shell2
+    shell: echo {{filename | dirname}} > /home/redhat/testshell
+  

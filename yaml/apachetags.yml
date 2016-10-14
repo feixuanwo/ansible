@@ -1,0 +1,21 @@
+- hosts: webservers
+  remote_user: root
+  vars:
+  - package: httpd
+  - service: httpd
+  tasks:
+  - name: install httpd package
+    yum: name={{package}} state=latest
+  - name: install configuration file for httpd
+    template: src=/root/templates/httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
+    tags:
+    - conf
+    notify:
+    - restart httpd
+  - name: start httpd service
+    service: enabled=true name={{service}} state=started
+    tags:
+    - service
+  handlers:
+  - name: restart httpd
+    service: name=httpd state=restarted

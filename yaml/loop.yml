@@ -1,0 +1,8 @@
+- hosts: webservers
+  remote_user: root
+  tasks:
+  - name: loop test
+    shell: echo {{item}} >> /home/redhat/ans/test
+    with_items:
+    - loop1
+    - loop2

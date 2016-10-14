@@ -1,0 +1,5 @@
+- hosts: webservers
+  remote_user: root
+  tasks:
+  - name: copy file
+    copy: content={{ansible_all_ipv4_addresses}},{{ansible_nodename}} dest=/home/redhat/vars.ans

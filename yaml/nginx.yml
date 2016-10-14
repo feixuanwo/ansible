@@ -1,0 +1,7 @@
+- hosts: webservers
+  remote_user: root
+  tasks:
+  - name: create nginx group
+    group: name=nginx system=yes gid=208
+  - name: create nginx user
+    user: name=nginx uid=208 group=nginx system=yes

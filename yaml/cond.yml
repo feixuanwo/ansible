@@ -1,0 +1,9 @@
+- hosts: all
+  remote_user: root
+  vars:
+  - username: user10
+  tasks:
+  - name: crate {{username}} user
+    user: name={{username}}
+    when: ansible_fqdn == "localhost.localdomain"
+    
