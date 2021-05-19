@@ -1,0 +1,20 @@
+---
+- hosts: mgmt  #定义的主机组，即应用的主机
+  remote_user: migu     # 远程用户为root
+  tasks:
+    #- name: create path /data/soft
+    #  shell: sudo mkdir -p /data/soft
+    - name: create path /data/soft
+      file:
+        path: /data/soft
+        state: directory
+        mode: '0755'
+    - name: deploy jdk
+      unarchive:
+        src: /home/migu/roles/soft/jdk16x64.tgz
+        dest: /data/soft/
+    - name: create soft link
+      file:
+        src: /data/soft/jdk16x64
+        dest: /data/soft/jdk
+        state: link

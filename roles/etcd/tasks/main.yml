@@ -1,0 +1,42 @@
+- name: deploy etcd rpm
+  copy:
+    src: "{{ etcd }}"
+    dest: "{{ etcd_dest_path }}"
+- name: deploy etcd.service file
+  become: yes
+  become_method: sudo
+  copy:
+    src: "{{ etcd_service_conf }}"
+    dest: "{{ etcd_service_conf_path }}"
+- name: install etcd
+  become: yes
+  become_method: sudo
+  yum:
+    name: "{{ etcd }}"
+    state: present
+- name: backup old conf
+  become: yes
+  become_method: sudo
+  command: mv /etc/etcd/etcd.conf /etc/etcd/etcd.conf.bak
+- name: deploy etcd conf file
+  become: yes
+  become_method: sudo
+  template:
+    src: etcd.conf.j2
+    dest: /etc/etcd/etcd.conf
+- name: create etcd data path
+  become: yes
+  become_method: sudo
+  file:
+    path: "{{ etcd_data_path }}"
+    state: directory
+    owner: etcd
+    group: etcd
+    recurse: yes
+- name: start etcd
+  become: yes
+  become_user: etcd
+  systemd:
+    name: etcd.service
+    state: started
+    enabled: yes

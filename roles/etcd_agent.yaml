@@ -1,0 +1,5 @@
+- hosts: etcd_agent
+  serial: 5
+  remote_user: migu
+  roles:
+    - etcd_agent

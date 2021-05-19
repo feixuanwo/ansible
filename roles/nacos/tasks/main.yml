@@ -1,0 +1,27 @@
+#- name: deploy nacos
+#  become: yes
+#  become_method: sudo
+#  unarchive:
+#    src: "{{ nacos_zip }}"
+#    dest: "{{ nacos_install_path }}"
+#- name: create nacos path
+#  become: yes
+#  become_method: sudo
+#  file:
+#    path: "{{ nacos_install_path }}/nacos"
+#    state: directory
+#    owner: migu
+#    group: migu
+#    recurse: yes
+#- name: backup old conf
+#  command: "mv {{ nacos_install_path }}/nacos/conf/cluster.conf.example {{ nacos_install_path }}/nacos/conf/cluster.conf.example_bak"
+#- name: deploy nacos cluster.conf file
+#  template:
+#    src: cluster.conf.j2
+#    dest: "{{ nacos_install_path }}/nacos/conf/cluster.conf"
+#- name: deploy nacos application.properties file
+#  template:
+#    src: application.properties.j2
+#    dest: "{{ nacos_install_path }}/nacos/conf/application.properties"
+- name: run start shell
+  shell: "source /home/migu/.bash_profile; sh {{ nacos_install_path }}/nacos/bin/startup.sh"

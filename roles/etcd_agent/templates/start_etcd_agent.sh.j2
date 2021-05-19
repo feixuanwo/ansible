@@ -1,0 +1,3 @@
+#!/bin/bash
+
+su - etcd -s /bin/sh -c "etcd gateway start --endpoints={{ endpoints }} --listen-addr=127.0.0.1:2379 &"

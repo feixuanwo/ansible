@@ -1,0 +1,11 @@
+[nacos]
+10.172.71.22
+10.172.71.21
+10.172.71.20
+10.172.71.19
+10.172.71.18
+
+
+[nacos:vars]
+ansible_ssh_user=migu
+ansible_ssh_pass=XOC7gLtWO84@Q2E

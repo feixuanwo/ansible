@@ -1,0 +1,5 @@
+- hosts: etcd
+  serial: 5
+  remote_user: migu
+  roles:
+    - etcd

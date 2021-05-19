@@ -1,0 +1,39 @@
+- name: deploy redis rpm
+  copy:
+    src: "{{ redis }}"
+    dest: "{{ rpm_dest_path }}"
+- name: deploy redis_trib rpm
+  copy:
+    src: "{{ redis_trib }}"
+    dest: "{{ rpm_dest_path }}"
+- name: install redis
+  become: yes
+  become_method: sudo
+  yum:
+    name: [ "{{ redis }}", "{{ redis_trib }}" ]
+    state: present
+- name: create redis_cluster path
+  become: yes
+  become_method: sudo
+  file:
+    path: "{{ cluster_path }}/{{ redis_port }}"
+    state: directory
+    owner: redis
+    group: redis
+    recurse: yes
+- name: deploy redis conf file
+  become: yes
+  become_user: redis
+  template:
+    src: redis.conf.j2
+    dest: "{{ cluster_path }}/{{ redis_port }}/redis_{{ redis_port }}.conf"
+- name: start redis
+  become: yes
+  become_user: redis
+  shell: "redis-server /data/redis_cluster/{{ redis_port }}/redis_{{ redis_port }}.conf"
+- name: check redis port is up
+  script: "{{ script_path }}/test_conn.py {{ ansible_default_ipv4['address'] }} {{ redis_port }}"
+  register: test_conn
+- name: run python script debug
+  debug:
+    msg: "{{ test_conn.stdout }}"

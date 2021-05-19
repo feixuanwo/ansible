@@ -1,0 +1,45 @@
+---
+- hosts: redis #定义的主机组，即应用的主机
+  remote_user: migu     # 远程用户为root
+  #serial: 4
+  tasks:
+    #- name: deploy redis rpm
+    #  copy:
+    #    src: "/home/migu/ywzcy/playbook/{{ item }}"
+    #    dest: /home/migu/
+    #  with_items:
+    #    - redis-3.2.12-2.el7.x86_64.rpm
+    #    - redis-trib-3.2.12-2.el7.noarch.rpm
+    #- name: Install redis
+    #  become: yes
+    #  become_method: sudo
+    #  yum:
+    #    name: ['redis-3.2.12-2.el7.x86_64.rpm', 'redis-trib-3.2.12-2.el7.noarch.rpm']
+    #    state: present
+    #- name: create path /data/soft
+    #  shell: sudo mkdir -p /data/redis_cluster/{7002,7008};sudo chown migu:migu -R /data/redis_cluster
+    #- name: deploy redis conf file
+    #  copy:
+    #    src: "/home/migu/ywzcy/playbook/{{ item.confname }}"
+    #    dest: "/data/redis_cluster/{{ item.confpath }}/"
+    #  with_items:
+    #    - { confname: 'redis_7002.conf', confpath: '7002' }
+    #    - { confname: 'redis_7008.conf', confpath: '7008' }
+    #- name: replace1
+    #  shell: sed -i "s/10.150.34.130/{{ ansible_default_ipv4['address'] }}/g" /data/redis_cluster/7002/redis_7002.conf
+    #- name: replace2
+    #  shell: sed -i "s/10.150.34.130/{{ ansible_default_ipv4['address'] }}/g" /data/redis_cluster/7008/redis_7008.conf
+    - name: chown /data/redis_cluster
+      become: yes
+      become_method: sudo
+      file:
+        path: /data/redis_cluster
+        state: directory
+        owner: redis
+        group: redis
+        recurse: yes
+    - name: start redis
+      shell: sudo -u redis redis-server /data/redis_cluster/{{ item.port }}/redis_{{ item.port }}.conf
+      with_items:
+        - port: 7002
+        - port: 7008

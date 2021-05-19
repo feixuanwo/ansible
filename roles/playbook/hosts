@@ -1,0 +1,7 @@
+[redis]
+10.172.71.72
+
+
+[redis:vars]
+ansible_ssh_user=migu
+ansible_ssh_pass=XOC7gLtWO84@Q2E

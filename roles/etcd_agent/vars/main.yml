@@ -1,0 +1,12 @@
+---
+etcd_dest_path: /home/migu/
+etcd_data_path: /data/app/etcd_data/
+etcd: etcd-3.3.11-2.el7.centos.x86_64.rpm
+etcd00: 10.172.71.18
+etcd01: 10.172.71.19
+etcd02: 10.172.71.20
+etcd03: 10.172.71.21
+etcd04: 10.172.71.22
+etcd_service_conf: etcd.service
+etcd_service_conf_path: /usr/lib/systemd/system/
+endpoints: 10.172.71.18:2379,10.172.71.19:2379,10.172.71.20:2379,10.172.71.21:2379,10.172.71.22:2379

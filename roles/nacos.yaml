@@ -1,0 +1,4 @@
+- hosts: nacos
+  remote_user: migu
+  roles:
+    - nacos

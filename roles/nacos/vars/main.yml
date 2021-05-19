@@ -1,0 +1,12 @@
+---
+nacos1: 10.172.71.18
+nacos2: 10.172.71.19
+nacos3: 10.172.71.20
+nacos4: 10.172.71.21
+nacos5: 10.172.71.22
+nacos_install_path: /data/
+nacos_zip: nacos-server-1.3.1.zip
+mysql_ip: 10.186.20.215
+nacos_dbname: nacosdb
+nacos_db_user: m_nacos
+nacos_db_password: 287bA9dSb-

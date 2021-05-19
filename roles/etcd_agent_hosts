@@ -1,0 +1,11 @@
+[etcd_agent]
+10.172.71.66
+10.172.71.67
+10.172.71.68
+10.172.71.69
+10.172.71.70
+10.172.71.64
+
+[etcd_agent:vars]
+ansible_ssh_user=migu
+ansible_ssh_pass=XOC7gLtWO84@Q2E

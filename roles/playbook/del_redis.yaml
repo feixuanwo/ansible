@@ -1,0 +1,15 @@
+- hosts: redis
+  remote_user: migu
+  tasks:
+    - name: stop redis
+      become: yes
+      become_method: sudo
+      shell: "ps -ef |grep redis| grep {{ redis_port }} |awk '{print $2}'|xargs kill -9"
+      ignore_errors: yes
+    - name: rm redis path
+      become: yes
+      become_method: sudo
+      file:
+        path: "/data/redis_cluster/{{ redis_port }}"
+        state: absent
+   

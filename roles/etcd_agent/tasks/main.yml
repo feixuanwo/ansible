@@ -1,0 +1,24 @@
+- name: deploy etcd rpm
+  copy:
+    src: "{{ etcd }}"
+    dest: "{{ etcd_dest_path }}"
+- name: install etcd
+  become: yes
+  become_method: sudo
+  yum:
+    name: "{{ etcd }}"
+    state: present
+- name: set auto start
+  become: yes
+  become_method: sudo
+  lineinfile:
+    dest: /etc/rc.local
+    line: 'su - etcd -s /bin/sh -c "etcd gateway start --endpoints={{ endpoints }} --listen-addr=127.0.0.1:2379 &"'
+- name: deploy start agent shell file
+  template:
+    src: start_etcd_agent.sh.j2
+    dest: /home/migu/start_etcd_agent.sh
+- name: run start shell
+  become: yes
+  become_method: sudo
+  shell: sh /home/migu/start_etcd_agent.sh

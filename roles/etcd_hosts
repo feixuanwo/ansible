@@ -1,0 +1,11 @@
+[etcd]
+10.172.71.22  etcdname=etcd04
+10.172.71.21  etcdname=etcd03
+10.172.71.20  etcdname=etcd02
+10.172.71.19  etcdname=etcd01
+10.172.71.18  etcdname=etcd00
+
+
+[etcd:vars]
+ansible_ssh_user=migu
+ansible_ssh_pass=XOC7gLtWO84@Q2E

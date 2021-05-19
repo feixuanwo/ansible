@@ -1,0 +1,4 @@
+#- name: reload nginx
+#  command: /usr/local/nginx/sbin/nginx -s reload
+#- name: start nginx
+#  command: /usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf

@@ -1,0 +1,35 @@
+---
+- hosts: nacos  #定义的主机组，即应用的主机
+  remote_user: migu     # 远程用户为root
+  serial: 2
+  tasks:
+    - name: create nacos path
+      become: yes
+      become_method: sudo
+      file:
+        path: /data/soft
+        state: directory
+        owner: migu
+        group: migu
+        recurse: yes
+    - name: deploy jdk
+      unarchive:
+        src: /home/migu/roles/soft/jdk-8u191-linux-x64.tar.gz
+        dest: /data/soft/
+    #- name: create soft link
+    #  file:
+    #    src: /data/soft/jdk16x64
+    #    dest: /data/soft/jdk
+    #    state: link
+    - name: append java envirament 
+      lineinfile:
+        dest: /home/migu/.bash_profile
+        line: "{{ item.line }}"
+      with_items:
+        - { line: 'export JAVA_HOME=/data/soft/jdk1.8.0_191' }
+        - { line: 'export JRE_HOME=${JAVA_HOME}/jre' }
+        - { line: 'export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib:$CLASSPATH' }
+        - { line: 'export JAVA_PATH=${JAVA_HOME}/bin:${JRE_HOME}/bin' }
+        - { line: 'export PATH=$PATH:${JAVA_PATH}' }
+    #- name: update java path
+    #  shell: sed -i 's#/usr/local#/data/soft#g' /home/migu/.bash_profile
