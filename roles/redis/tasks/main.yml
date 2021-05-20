@@ -1,11 +1,16 @@
 - name: deploy redis rpm
   copy:
-    src: "{{ redis }}"
+    src: "{{ item }}"
     dest: "{{ rpm_dest_path }}"
-- name: deploy redis_trib rpm
-  copy:
-    src: "{{ redis_trib }}"
-    dest: "{{ rpm_dest_path }}"
+  with_items: "{{ redis_list }}"
+#- name: deploy redis rpm
+#  copy:
+#    src: "{{ redis }}"
+#    dest: "{{ rpm_dest_path }}"
+#- name: deploy redis_trib rpm
+#  copy:
+#    src: "{{ redis_trib }}"
+#    dest: "{{ rpm_dest_path }}"
 - name: install redis
   become: yes
   become_method: sudo
