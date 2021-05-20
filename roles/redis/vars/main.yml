@@ -6,3 +6,6 @@ redis: redis-3.2.12-2.el7.x86_64.rpm
 redis_trib: redis-trib-3.2.12-2.el7.noarch.rpm
 cluster_path: /data/redis_cluster/
 script_path: /home/migu/roles/redis/files
+redis_list:
+  - redis-3.2.12-2.el7.x86_64.rpm
+  - redis-trib-3.2.12-2.el7.noarch.rpm
